@@ -48,10 +48,14 @@ class Cart:
         if book_title in self.items:
             del self.items[book_title]
 
-    def update_quantity(self, book_title, quantity):
+    def update_quantity(self, book_title, quantity):  #ERROR found: only assigns new quantity, does not remove if zero
         if book_title in self.items:
-            self.items[book_title].quantity = quantity
-
+            if quantity <= 0:
+                # remove item when quantity is zero or negative
+                del self.items[book_title]
+            else:
+                self.items[book_title].quantity = quantity
+ 
     def get_total_price(self):
         total = 0
         for item in self.items.values():
